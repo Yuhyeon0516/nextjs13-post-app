@@ -4,6 +4,9 @@ async function getPost(postId: string) {
   const res = await fetch(`http://127.0.0.1:8090/api/collections/posts/records/${postId}`, { next: { revalidate: 10 } });
   const data = res.json();
 
+  if (!res.ok) {
+    throw new Error("failed to fetch data");
+  }
   return data;
 }
 const PostDetailPage = async ({ params }: any) => {
